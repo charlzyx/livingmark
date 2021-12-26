@@ -6,4 +6,5 @@ dist
 dist-ssr
 node_modules
 .idea/
+.cache/
 *.log

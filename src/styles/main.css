@@ -41,3 +41,34 @@ html.dark {
     hover:opacity-100 hover:text-teal-600;
   font-size: 0.9em;
 }
+
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+.living-code {
+  border: 1px solid #ffcb00;
+  margin-top: 19px;
+  &::before {
+    content: "LIVING MARK";
+    float: left;
+    margin-left: -1px;
+    margin-top: -18px;
+    padding: 3px 6px;
+    font-size: 12px;
+    line-height: 1;
+    background-color: #ffcb00;
+    color: #735600;
+    text-shadow: 0.5px 0.5px 0 hsl(0deg 0% 100% / 50%);
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+ }
+ .livingcode {
+   padding: 10px;
+   border-bottom: 1px dashed #ebedf1;
+ }
+ pre {
+   padding: 10px;
+ }
+}

@@ -15,6 +15,8 @@ import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
 
+import { VitePluginMark } from './plugin/index'
+
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
 export default defineConfig({
@@ -44,6 +46,12 @@ export default defineConfig({
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
+      ],
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/, /\.vue\?vue/, // .vue
+        /node_modules\/\.markvueify\/(.*)\.vue/, // .markvueify/*.vue
+        /\.md$/, // .md
       ],
       dts: 'src/auto-imports.d.ts',
     }),
@@ -78,26 +86,27 @@ export default defineConfig({
     WindiCSS({
       safelist: markdownWrapperClasses,
     }),
+    VitePluginMark(),
 
     // https://github.com/antfu/vite-plugin-md
     // Don't need this? Try vitesse-lite: https://github.com/antfu/vitesse-lite
-    Markdown({
-      wrapperClasses: markdownWrapperClasses,
-      headEnabled: true,
-      markdownItSetup(md) {
-        // https://prismjs.com/
-        // @ts-expect-error types mismatch
-        md.use(Prism)
-        // @ts-expect-error types mismatch
-        md.use(LinkAttributes, {
-          pattern: /^https?:\/\//,
-          attrs: {
-            target: '_blank',
-            rel: 'noopener',
-          },
-        })
-      },
-    }),
+    // Markdown({
+    //   wrapperClasses: markdownWrapperClasses,
+    //   headEnabled: true,
+    //   markdownItSetup(md) {
+    //     // https://prismjs.com/
+    //     // @ts-expect-error types mismatch
+    //     md.use(Prism)
+    //     // @ts-expect-error types mismatch
+    //     md.use(LinkAttributes, {
+    //       pattern: /^https?:\/\//,
+    //       attrs: {
+    //         target: '_blank',
+    //         rel: 'noopener',
+    //       },
+    //     })
+    //   },
+    // }),
 
     // https://github.com/antfu/vite-plugin-pwa
     VitePWA({
@@ -138,7 +147,7 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-inspect
     Inspect({
       // change this to enable inspect for debugging
-      enabled: false,
+      enabled: true,
     }),
   ],
 
